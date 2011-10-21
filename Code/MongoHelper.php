@@ -200,6 +200,15 @@ class MongoHelper {
 	}
 	
 	/**
+	 * Create MongoId object
+	 * @param string $id
+	 * @return object
+	 */
+	public function mongoid($id) {
+		return new MongoId($id);
+	}
+	
+	/**
 	 * The pseudo auto increment handling is done by storing collectionName => id in Autoincrements collection
 	 *
 	 * We get value, increment it and resave it but watch for Errors/Exceptions in order to prevent race condition
