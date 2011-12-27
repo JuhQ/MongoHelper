@@ -209,6 +209,15 @@ class MongoHelper {
 	}
 	
 	/**
+	 * Create MongoRegex object
+	 * @param string $regex
+	 * @return object
+	 */
+	public function regex($regex) {
+		return new MongoRegex($regex);
+	}
+	
+	/**
 	 * The pseudo auto increment handling is done by storing collectionName => id in Autoincrements collection
 	 *
 	 * We get value, increment it and resave it but watch for Errors/Exceptions in order to prevent race condition
