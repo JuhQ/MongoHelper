@@ -73,8 +73,15 @@ class MongoHelper {
 	
 	/**
 	 * Open database connection and define collection
+	 * @param mixed string / boolean $collection
 	 */
-	public function __construct() {
+	public function __construct($collection = false) {
+		
+		// enable dynamic collections
+		// this will help to create new collections even faster, without the need to create new classes
+		if($collection !== false) {
+			$this->collectionName = $collection;
+		}
 		
 		// if no collection is defined, use class name as collection name
 		if ($this->collectionName === false) {
@@ -215,6 +222,26 @@ class MongoHelper {
 	 */
 	public function regex($regex) {
 		return new MongoRegex($regex);
+	}
+
+	/**
+	 * Represents JavaScript code for the database.
+	 * @param string $func
+	 * @param array $scope
+	 * @return object
+	 */
+	public function code($func, $scope = array()) {
+		return new MongoCode($func, $scope);
+	}
+	
+	/**
+	 * Execute code on the server
+	 * @param mixed object / string $code
+	 * @param array $args
+	 * @return mixed
+	 */
+	public function execute($code, $args = array()) {
+		return $this->mongo->execute($code, $args);
 	}
 	
 	/**
